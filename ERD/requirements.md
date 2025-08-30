@@ -78,12 +78,5 @@ Design an Entity-Relationship Diagram (ERD) for an Airbnb-like platform. The dia
 
 ---
 
-## Deliverables
-
-* **Diagram**: A visual ERD created using [draw.io](https://app.diagrams.net/) or any ERD tool.
-* **File format**:
-
-  * `ERD/airbnb-erd.png` (exported diagram)
-  * `ERD/requirements.md` (this document)
 
 
