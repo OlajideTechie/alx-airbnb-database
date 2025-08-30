@@ -1,0 +1,56 @@
+<mxfile host="app.diagrams.net">
+  <diagram id="airbnb-erd" name="Airbnb ERD">
+    <mxGraphModel dx="1220" dy="720" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+
+        <!-- User -->
+        <mxCell id="User" value="User&#xa;---&#xa;id (PK)&#xa;first_name&#xa;last_name&#xa;email&#xa;phone_number&#xa;created_at&#xa;updated_at" style="shape=rectangle;whiteSpace=wrap;rounded=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="60" y="60" width="200" height="160" as="geometry"/>
+        </mxCell>
+
+        <!-- Property -->
+        <mxCell id="Property" value="Property&#xa;---&#xa;id (PK)&#xa;owner_id (FK)&#xa;title&#xa;description&#xa;address&#xa;city&#xa;state&#xa;country&#xa;price_per_night&#xa;created_at&#xa;updated_at" style="shape=rectangle;whiteSpace=wrap;rounded=1;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1">
+          <mxGeometry x="380" y="60" width="220" height="220" as="geometry"/>
+        </mxCell>
+
+        <!-- Booking -->
+        <mxCell id="Booking" value="Booking&#xa;---&#xa;id (PK)&#xa;user_id (FK)&#xa;property_id (FK)&#xa;check_in_date&#xa;check_out_date&#xa;status&#xa;created_at&#xa;updated_at" style="shape=rectangle;whiteSpace=wrap;rounded=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="220" y="360" width="220" height="180" as="geometry"/>
+        </mxCell>
+
+        <!-- Review -->
+        <mxCell id="Review" value="Review&#xa;---&#xa;id (PK)&#xa;user_id (FK)&#xa;property_id (FK)&#xa;rating&#xa;comment&#xa;created_at" style="shape=rectangle;whiteSpace=wrap;rounded=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="660" y="60" width="200" height="140" as="geometry"/>
+        </mxCell>
+
+        <!-- Payment -->
+        <mxCell id="Payment" value="Payment&#xa;---&#xa;id (PK)&#xa;booking_id (FK)&#xa;amount&#xa;payment_date&#xa;status" style="shape=rectangle;whiteSpace=wrap;rounded=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+          <mxGeometry x="540" y="380" width="200" height="140" as="geometry"/>
+        </mxCell>
+
+        <!-- Relationships -->
+        <mxCell id="User-Property" edge="1" parent="1" source="User" target="Property" style="endArrow=block;endFill=1;">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="User-Booking" edge="1" parent="1" source="User" target="Booking" style="endArrow=block;endFill=1;">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="Property-Booking" edge="1" parent="1" source="Property" target="Booking" style="endArrow=block;endFill=1;">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="User-Review" edge="1" parent="1" source="User" target="Review" style="endArrow=block;endFill=1;">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="Property-Review" edge="1" parent="1" source="Property" target="Review" style="endArrow=block;endFill=1;">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="Booking-Payment" edge="1" parent="1" source="Booking" target="Payment" style="endArrow=block;endFill=1;">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
