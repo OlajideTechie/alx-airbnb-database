@@ -20,6 +20,7 @@ CREATE TABLE users (
     first_name VARCHAR(100) NOT NULL,
     last_name VARCHAR(100) NOT NULL,
     email VARCHAR(150) UNIQUE NOT NULL,
+    role VARCHAR(20) CHECK (role IN ('guest', 'host', 'admin')) NOT NULL,
     phone_number VARCHAR(20),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
