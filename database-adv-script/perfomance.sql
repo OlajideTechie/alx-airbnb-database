@@ -1,11 +1,12 @@
 -- performance.sql
 
 -- ========================================
--- Step 1: Initial Query
+-- Step 1: Initial Query with Filters
 -- Retrieve all bookings along with:
 --   - User details
 --   - Property details
 --   - Payment details
+-- Apply WHERE and AND clauses for filtering
 -- ========================================
 
 SELECT 
@@ -24,33 +25,49 @@ FROM
     bookings b
 INNER JOIN users u ON b.user_id = u.user_id
 INNER JOIN properties p ON b.property_id = p.property_id
-INNER JOIN payments pay ON b.booking_id = pay.booking_id;
+INNER JOIN payments pay ON b.booking_id = pay.booking_id
+WHERE b.booking_date >= '2025-01-01'  -- Filter bookings starting from Jan 1, 2025
+  AND b.booking_date < '2025-02-01'   -- Filter bookings before Feb 1, 2025
+  AND u.user_id = 123;                 -- Example: filter for a specific user
 
 -- ========================================
 -- Step 2: Analyze Performance
 -- Use EXPLAIN or EXPLAIN ANALYZE to identify inefficiencies.
--- Example (PostgreSQL):
--- EXPLAIN ANALYZE
--- SELECT ...
--- Look for:
---   - Sequential scans on large tables
---   - High cost joins
---   - Unnecessary columns being fetched
 -- ========================================
+
+EXPLAIN ANALYZE
+SELECT 
+    b.booking_id,
+    b.booking_date,
+    u.user_id,
+    u.name AS user_name,
+    u.email AS user_email,
+    p.property_id,
+    p.name AS property_name,
+    p.location AS property_location,
+    pay.payment_id,
+    pay.amount,
+    pay.payment_date
+FROM 
+    bookings b
+INNER JOIN users u ON b.user_id = u.user_id
+INNER JOIN properties p ON b.property_id = p.property_id
+INNER JOIN payments pay ON b.booking_id = pay.booking_id
+WHERE b.booking_date >= '2025-01-01'
+  AND b.booking_date < '2025-02-01'
+  AND u.user_id = 123;
 
 -- ========================================
 -- Step 3: Refactor Query for Performance
 -- Possible optimizations:
---   1. Only select columns you need (avoid SELECT *).
---   2. Add indexes on:
+--   1. Select only necessary columns
+--   2. Ensure indexes exist on:
+--        - bookings.booking_date
 --        - bookings.user_id
 --        - bookings.property_id
 --        - payments.booking_id
---   3. Ensure proper join order (smaller tables first if possible)
---   4. Use LEFT JOIN if some relationships are optional and you don't need to filter them out.
 -- ========================================
 
--- Example Refactored Query (fetch only necessary columns)
 SELECT 
     b.booking_id,
     b.booking_date,
@@ -61,12 +78,12 @@ FROM
     bookings b
 INNER JOIN users u ON b.user_id = u.user_id
 INNER JOIN properties p ON b.property_id = p.property_id
-INNER JOIN payments pay ON b.booking_id = pay.booking_id;
+INNER JOIN payments pay ON b.booking_id = pay.booking_id
+WHERE b.booking_date >= '2025-01-01'
+  AND b.booking_date < '2025-02-01'
+  AND u.user_id = 123;
 
 -- ========================================
 -- Step 4: Measure Performance After Refactor
--- Use EXPLAIN ANALYZE again and compare total execution time and rows scanned.
--- If performance is still slow:
---   - Ensure indexes exist on foreign key columns (user_id, property_id, booking_id)
---   - Consider adding composite indexes if filtering on multiple columns frequently
+-- Compare execution time and rows scanned using EXPLAIN ANALYZE.
 -- ========================================
